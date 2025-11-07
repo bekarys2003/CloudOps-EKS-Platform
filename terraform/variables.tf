@@ -14,7 +14,7 @@ variable "tags" {
 type = map(string)
 default = {
     terraform  = "true"
-    kubernetes = "demo-eks-cluster"
+    kubernetes = "cloudops-eks-cluster"
 }
 description = "Tags to apply to all resources"
 }

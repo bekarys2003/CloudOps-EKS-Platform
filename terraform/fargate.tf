@@ -1,5 +1,5 @@
-resource "aws_iam_role" "demo-eks-fargate-profile-role" {
-name = "demo-eks-fargate-profile-role"
+resource "aws_iam_role" "cloudops-eks-fargate-profile-role" {
+name = "cloudops-eks-fargate-profile-role"
 
 assume_role_policy = jsonencode({
     Statement = [{
@@ -15,13 +15,13 @@ assume_role_policy = jsonencode({
 
 resource "aws_iam_role_policy_attachment" "fargate-execution-policy" {
 policy_arn = "arn:aws:iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy"
-role       = aws_iam_role.demo-eks-fargate-profile-role.name
+role       = aws_iam_role.cloudops-eks-fargate-profile-role.name
 }
 
-resource "aws_eks_fargate_profile" "demo-eks-fg-prof" {
+resource "aws_eks_fargate_profile" "cloudops-eks-fg-prof" {
 cluster_name           = aws_eks_cluster.cloudops-eks-platform.name
-fargate_profile_name   = "demo-eks-fargate-profile-1"
-pod_execution_role_arn = aws_iam_role.demo-eks-fargate-profile-role.arn
+fargate_profile_name   = "cloudops-eks-fargate-profile-1"
+pod_execution_role_arn = aws_iam_role.cloudops-eks-fargate-profile-role.arn
 selector {
     namespace = "kube-system"
     #can further filter by labels

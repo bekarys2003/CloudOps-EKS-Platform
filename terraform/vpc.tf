@@ -2,7 +2,7 @@ data "aws_availability_zones" "available" {
 state = "available"
 }
 
-resource "aws_vpc" "demo-eks-cluster-vpc" {
+resource "aws_vpc" "cloudops-eks-cluster-vpc" {
 cidr_block = var.cidr_block
 enable_dns_hostnames = true
 tags = var.tags
@@ -21,28 +21,28 @@ locals {
 
 
 resource "aws_subnet" "public-subnet-1" {
-vpc_id     = aws_vpc.demo-eks-cluster-vpc.id
+vpc_id     = aws_vpc.cloudops-eks-cluster-vpc.id
 cidr_block = cidrsubnet(var.cidr_block, 8, 10)
 availability_zone = data.aws_availability_zones.available.names[0]
 tags = merge(var.tags, local.public_additional_tags)
 }
 
 resource "aws_subnet" "public-subnet-2" {
-vpc_id     = aws_vpc.demo-eks-cluster-vpc.id
+vpc_id     = aws_vpc.cloudops-eks-cluster-vpc.id
 cidr_block = cidrsubnet(var.cidr_block, 8, 20)
 availability_zone = data.aws_availability_zones.available.names[1]
 tags = merge(var.tags, local.public_additional_tags)
 }
 
 resource "aws_subnet" "private-subnet-1" {
-vpc_id     = aws_vpc.demo-eks-cluster-vpc.id
+vpc_id     = aws_vpc.cloudops-eks-cluster-vpc.id
 cidr_block = cidrsubnet(var.cidr_block, 8, 110)
 availability_zone = data.aws_availability_zones.available.names[0]
 tags = merge(var.tags, local.private_additional_tags)
 }
 
 resource "aws_subnet" "private-subnet-2" {
-vpc_id     = aws_vpc.demo-eks-cluster-vpc.id
+vpc_id     = aws_vpc.cloudops-eks-cluster-vpc.id
 cidr_block = cidrsubnet(var.cidr_block, 8, 120)
 availability_zone = data.aws_availability_zones.available.names[1]
 
@@ -50,7 +50,7 @@ tags = merge(var.tags, local.private_additional_tags)
 }
 
 resource "aws_internet_gateway" "eks-igw" {
-vpc_id = aws_vpc.demo-eks-cluster-vpc.id
+vpc_id = aws_vpc.cloudops-eks-cluster-vpc.id
 
 tags = var.tags
 }
@@ -86,7 +86,7 @@ tags = var.tags
 }
 
 resource "aws_route_table" "public-rt" {
-vpc_id = aws_vpc.demo-eks-cluster-vpc.id
+vpc_id = aws_vpc.cloudops-eks-cluster-vpc.id
 
 route {
     cidr_block = "0.0.0.0/0"
@@ -96,7 +96,7 @@ tags = var.tags
 }
 
 resource "aws_route_table"  "private-rt-a" {
-vpc_id = aws_vpc.demo-eks-cluster-vpc.id
+vpc_id = aws_vpc.cloudops-eks-cluster-vpc.id
 
 route {
     cidr_block = "0.0.0.0/0"
@@ -106,7 +106,7 @@ tags = var.tags
 }
 
 resource "aws_route_table"  "private-rt-b" {
-vpc_id = aws_vpc.demo-eks-cluster-vpc.id
+vpc_id = aws_vpc.cloudops-eks-cluster-vpc.id
 
 route {
     cidr_block = "0.0.0.0/0"
