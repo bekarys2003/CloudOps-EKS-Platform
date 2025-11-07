@@ -19,21 +19,18 @@ terraform {
   }
 }
 
-
 provider "aws" {
-    region = var.region
+  region = var.region
 }
 
-
-# Get cluster connection details
 data "aws_eks_cluster" "this" {
   name = aws_eks_cluster.cloudops-eks-platform.name
 }
+
 data "aws_eks_cluster_auth" "this" {
   name = aws_eks_cluster.cloudops-eks-platform.name
 }
 
-# Terraform talks to the cluster directly (no kubeconfig file needed)
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.this.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.this.certificate_authority[0].data)

@@ -1,4 +1,3 @@
-
 resource "null_resource" "deploy_online_boutique" {
   depends_on = [aws_eks_cluster.cloudops-eks-platform]
 
