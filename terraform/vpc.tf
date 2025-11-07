@@ -5,6 +5,7 @@ state = "available"
 resource "aws_vpc" "cloudops-eks-cluster-vpc" {
 cidr_block = var.cidr_block
 enable_dns_hostnames = true
+enable_dns_support = true
 tags = var.tags
 }
 

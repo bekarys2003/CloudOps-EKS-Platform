@@ -25,13 +25,11 @@ resource "aws_eks_cluster" "cloudops-eks-platform" {
     name = var.cluster_name
     role_arn = aws_iam_role.cloudops-eks-platform-role.arn
     vpc_config {
-    endpoint_private_access = true
+    endpoint_private_access = false
     endpoint_public_access = true
     subnet_ids = [
         aws_subnet.private-subnet-1.id,
         aws_subnet.private-subnet-2.id,
-        aws_subnet.public-subnet-1.id,
-        aws_subnet.public-subnet-2.id
     ]
     }
     access_config {
