@@ -1,0 +1,67 @@
+name: build-and-push
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "src/**"
+      - ".github/workflows/build-and-push.yaml"
+  workflow_dispatch: {}
+
+env:
+  AWS_REGION: ca-central-1
+
+jobs:
+  build-matrix:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write   # OIDC
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [
+          "adservice","cartservice","checkoutservice","currencyservice","emailservice",
+          "frontend","paymentservice","productcatalogservice","recommendationservice",
+          "shippingservice"
+        ]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_GHA_BUILD_PUSH_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Export AWS_ACCOUNT_ID
+        run: |
+          echo "AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)" >> $GITHUB_ENV
+
+      - name: Login to ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Compute TAG
+        id: vars
+        run: echo "TAG=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_OUTPUT
+
+      - name: Build & Push ${{ matrix.service }}
+        env:
+          IMAGE: ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/online-boutique/${{ matrix.service }}
+          TAG: ${{ steps.vars.outputs.TAG }}
+        run: |
+          set -euo pipefail
+
+          DOCKERFILE="src/${{ matrix.service }}/Dockerfile"
+          CONTEXT="src/${{ matrix.service }}"
+
+          if [ ! -f "$DOCKERFILE" ]; then
+            echo "Dockerfile not found at $DOCKERFILE"; exit 1
+          fi
+
+          # Build once
+          docker build -f "$DOCKERFILE" -t "$IMAGE:$TAG" "$CONTEXT"
+
+          # Push both the short SHA and 'latest' so Kustomize pulls succeed now
+          docker tag "$IMAGE:$TAG" "$IMAGE:latest"
+          docker push "$IMAGE:$TAG"
+          docker push "$IMAGE:latest"
