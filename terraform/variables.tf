@@ -20,7 +20,7 @@ variable "tags" {
 
 variable "eks_version" {
   type        = string
-  default     = "1.31"
+  default     = "1.32"
   description = "EKS version"
 }
 
@@ -30,9 +30,9 @@ variable "cluster_name" {
   description = "EKS cluster name value"
 }
 
-# --- CloudFront/Route53 vars moved here ---
 variable "domain_name" {
   description = "Root domain (public hosted zone exists). Example: bekarys2003.com"
+  default   = "bekarys2003.com"
   type        = string
 }
 
@@ -52,4 +52,34 @@ variable "enable_ipv6" {
   description = "Enable IPv6 on CloudFront"
   type        = bool
   default     = true
+}
+
+
+
+variable "github_org" {
+    type      = string
+    default   = "bekarys2003"
+}
+variable "github_repo" {
+    type      = string
+    default   = "microservices-demo"
+}
+
+variable "github_token" {
+    type = string
+
+}
+
+variable "branch" {
+    type = string
+    default = "main"
+}
+
+variable "boutique_services" {
+  type    = set(string)
+  default = [
+    "adservice","cartservice","checkoutservice","currencyservice","emailservice",
+    "frontend","paymentservice","productcatalogservice","recommendationservice",
+    "shippingservice"
+  ]
 }

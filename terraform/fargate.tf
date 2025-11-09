@@ -21,8 +21,12 @@ resource "aws_eks_fargate_profile" "cloudops-eks-fg-prof" {
   fargate_profile_name   = "cloudops-eks-fargate-profile-1"
   pod_execution_role_arn = aws_iam_role.cloudops-eks-fargate-profile-role.arn
 
-  selector { namespace = "kube-system" }
-  selector { namespace = "default" }
+  selector {
+    namespace = "kube-system"
+    labels = {
+      "k8s-app" = "kube-dns"
+    }
+  }
 
   subnet_ids = [
     aws_subnet.private-subnet-1.id,

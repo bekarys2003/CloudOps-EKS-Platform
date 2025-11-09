@@ -5,8 +5,7 @@ resource "null_resource" "deploy_online_boutique" {
     command = <<-EOT
       set -e
       aws eks update-kubeconfig --region ${var.region} --name ${aws_eks_cluster.cloudops-eks-platform.name}
-      # Apply Google's Online Boutique manifests (frontend + all services)
-      kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/main/release/kubernetes-manifests.yaml
+      kubectl apply -f https://raw.githubusercontent.com/bekarys2003/microservices-demo/main/release/kubernetes-manifests.yaml
 
       echo "Waiting for LoadBalancer hostname..."
       for i in $(seq 1 60); do

@@ -12,6 +12,10 @@ terraform {
       source  = "hashicorp/helm"
       version = "2.13.2"
     }
+    github = {
+      source  = "integrations/github"
+      version = "~> 6.3"
+    }
     null = {
       source  = "hashicorp/null"
       version = "3.2.3"
@@ -44,3 +48,4 @@ provider "helm" {
     token                  = data.aws_eks_cluster_auth.this.token
   }
 }
+
