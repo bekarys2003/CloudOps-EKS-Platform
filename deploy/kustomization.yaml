@@ -2,36 +2,36 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - ../../release/kubernetes-manifests.yaml
+  - https://raw.githubusercontent.com/bekarys2003/microservices-demo/main/release/kubernetes-manifests.yaml
 
 images:
   - name: gcr.io/google-samples/microservices-demo/adservice
-    newName: <ACCOUNT_ID>.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/adservice
-    newTag: latest
+    newName: 819481465868.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/adservice
+    newTag: 7cd87330
   - name: gcr.io/google-samples/microservices-demo/cartservice
-    newName: <ACCOUNT_ID>.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/cartservice
-    newTag: latest
+    newName: 819481465868.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/cartservice
+    newTag: 7cd87330
   - name: gcr.io/google-samples/microservices-demo/checkoutservice
-    newName: <ACCOUNT_ID>.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/checkoutservice
-    newTag: latest
+    newName: 819481465868.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/checkoutservice
+    newTag: 7cd87330
   - name: gcr.io/google-samples/microservices-demo/currencyservice
-    newName: <ACCOUNT_ID>.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/currencyservice
-    newTag: latest
+    newName: 819481465868.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/currencyservice
+    newTag: 7cd87330
   - name: gcr.io/google-samples/microservices-demo/emailservice
-    newName: <ACCOUNT_ID>.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/emailservice
-    newTag: latest
+    newName: 819481465868.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/emailservice
+    newTag: 7cd87330
   - name: gcr.io/google-samples/microservices-demo/frontend
-    newName: <ACCOUNT_ID>.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/frontend
-    newTag: latest
+    newName: 819481465868.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/frontend
+    newTag: 7cd87330
   - name: gcr.io/google-samples/microservices-demo/paymentservice
-    newName: <ACCOUNT_ID>.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/paymentservice
-    newTag: latest
+    newName: 819481465868.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/paymentservice
+    newTag: 7cd87330
   - name: gcr.io/google-samples/microservices-demo/productcatalogservice
-    newName: <ACCOUNT_ID>.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/productcatalogservice
-    newTag: latest
+    newName: 819481465868.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/productcatalogservice
+    newTag: 7cd87330
   - name: gcr.io/google-samples/microservices-demo/recommendationservice
-    newName: <ACCOUNT_ID>.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/recommendationservice
-    newTag: latest
+    newName: 819481465868.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/recommendationservice
+    newTag: 7cd87330
   - name: gcr.io/google-samples/microservices-demo/shippingservice
-    newName: <ACCOUNT_ID>.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/shippingservice
-    newTag: latest
+    newName: 819481465868.dkr.ecr.ca-central-1.amazonaws.com/online-boutique/shippingservice
+    newTag: 7cd87330
